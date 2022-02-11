@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\ContactsController;
+use App\Http\Controllers\TagsController;
+
+Route::get('/articles/tags/{tag}', [TagsController::class, 'index']);
 
 Route::resource('/', ArticlesController::class)->only([
     'index', 'store',

@@ -32,6 +32,7 @@
         <h1> {{ $article->title }} </h1>
         <a class="change" href="{{ route('articles.edit', ['article' => $article]) }}">Изменить</a>
 
+        @include('articles.tags', ['tags' => $article->tags])
         <hr>
         <p class="article_description"> {{ $article->description }} </p>
         <hr>

@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FormValidate;
 use App\Models\Article;
+use App\Models\Tag;
+
 class ArticlesController extends Controller
 {
     public function index()
     {
-        $articles = Article::latest()->get();
+        $articles = Article::with('tags')->latest()->get();
 
         return view('index', compact('articles'));
     }
@@ -18,9 +20,9 @@ class ArticlesController extends Controller
         return view('articles.show', compact('article'));
     }
 
-    public function create()
+    public function create(Article $article)
     {
-        return view('articles.create');
+        return view('articles.create', compact('article'));
     }
 
     public function store(FormValidate $formValidate)
@@ -43,6 +45,19 @@ class ArticlesController extends Controller
 
         $article->update($attributes);
         $success = true;
+
+        $articleTags = $article->tags->keyBy('name');
+        $tags = collect(explode(',', request('tags')))->keyBy(function ($item) { return $item; });
+        $syncIds = $articleTags->intersectByKeys($tags)->pluck('id')->toArray();
+        $tagsToAttach = $tags->diffKeys($articleTags);
+
+        foreach ($tagsToAttach as $tag) {
+            $tag = Tag::firstOrCreate(['name' => $tag]);
+
+            $syncIds[] = $tag->id;
+        }
+
+        $article->tags()->sync($syncIds);
 
         return view('articles.show', compact('success', 'article'));
     }
