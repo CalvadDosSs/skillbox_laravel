@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FormValidate;
+use App\Http\Requests\TagsFormRequest;
 use App\Models\Article;
 use App\Models\Tag;
 
@@ -47,7 +48,7 @@ class ArticlesController extends Controller
         $success = true;
 
         $articleTags = $article->tags->keyBy('name');
-        $tags = collect(explode(',', request('tags')))->keyBy(function ($item) { return $item; });
+        $tags = TagsFormRequest::prepareForValidation();
         $syncIds = $articleTags->intersectByKeys($tags)->pluck('id')->toArray();
         $tagsToAttach = $tags->diffKeys($articleTags);
 
