@@ -40,7 +40,7 @@ class ArticlesController extends Controller
         return view('articles.edit', compact('article'));
     }
 
-    public function update(Article $article, FormValidate $formValidate)
+    public function update(Article $article, FormValidate $formValidate, TagsFormRequest $tagsFormRequest)
     {
         $attributes = $formValidate->validated();
 
@@ -48,7 +48,7 @@ class ArticlesController extends Controller
         $success = true;
 
         $articleTags = $article->tags->keyBy('name');
-        $tags = TagsFormRequest::prepareForValidation();
+        $tags = $tagsFormRequest->prepareForValidation();
         $syncIds = $articleTags->intersectByKeys($tags)->pluck('id')->toArray();
         $tagsToAttach = $tags->diffKeys($articleTags);
 

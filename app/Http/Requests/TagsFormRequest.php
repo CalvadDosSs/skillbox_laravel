@@ -9,4 +9,11 @@ class TagsFormRequest extends FormRequest
     {
         return collect(explode(',', request('tags')))->keyBy(function ($item) { return $item; });
     }
+
+    public function rules()
+    {
+        return [
+            'tag' => '',
+        ];
+    }
 }
