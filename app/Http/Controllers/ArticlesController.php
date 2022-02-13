@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FormValidate;
+use App\Http\Requests\TagsFormRequest;
+use App\Services\TagsSynchronizer;
 use App\Models\Article;
 use App\Models\Tag;
 
@@ -31,6 +33,14 @@ class ArticlesController extends Controller
 
         Article::create($attributes);
 
+        $tags = TagsFormRequest::prepareForValidation();
+        $article = Article::all()->last();
+
+        foreach ($tags as $newTag) {
+            $newTag = Tag::firstOrCreate(['name' => $newTag]);
+            $article->tags()->attach($newTag);
+        }
+
         return redirect(route('main'));
     }
 
@@ -46,18 +56,20 @@ class ArticlesController extends Controller
         $article->update($attributes);
         $success = true;
 
-        $articleTags = $article->tags->keyBy('name');
-        $tags = collect(explode(',', request('tags')))->keyBy(function ($item) { return $item; });
-        $syncIds = $articleTags->intersectByKeys($tags)->pluck('id')->toArray();
-        $tagsToAttach = $tags->diffKeys($articleTags);
+        $tags = TagsFormRequest::prepareForValidation();
 
-        foreach ($tagsToAttach as $tag) {
-            $tag = Tag::firstOrCreate(['name' => $tag]);
-
-            $syncIds[] = $tag->id;
-        }
-
-        $article->tags()->sync($syncIds);
+        TagsSynchronizer::sync($tags, $article);
+        
+//        $articleTags = $article->tags->keyBy('name');
+//        $syncIds = $articleTags->intersectByKeys($tags)->pluck('id')->toArray();
+//        $tagsToAttach = $tags->diffKeys($articleTags);
+//        foreach ($tagsToAttach as $tag) {
+//            $tag = Tag::firstOrCreate(['name' => $tag]);
+//
+//            $syncIds[] = $tag->id;
+//        }
+//
+//        $article->tags()->sync($syncIds);
 
         return view('articles.show', compact('success', 'article'));
     }
