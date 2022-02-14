@@ -33,7 +33,7 @@ class ArticlesController extends Controller
 
         Article::create($attributes);
 
-        $tags = $tagsFormRequest->prepareForValidation();
+        $tags = $tagsFormRequest->get('tags');
         $article = Article::all()->last();
 
         $tagsSynchronizer->sync($tags, $article);
@@ -53,7 +53,7 @@ class ArticlesController extends Controller
         $article->update($attributes);
         $success = true;
 
-        $tags = $tagsFormRequest->prepareForValidation();
+        $tags = $tagsFormRequest->get('tags');
 
         $tagsSynchronizer->sync($tags, $article);
 
