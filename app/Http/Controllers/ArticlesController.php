@@ -48,7 +48,7 @@ class ArticlesController extends Controller
         $success = true;
 
         $articleTags = $article->tags->keyBy('name');
-        $tags = $tagsFormRequest->prepareForValidation();
+        $tags = $tagsFormRequest->get('tags');
         $syncIds = $articleTags->intersectByKeys($tags)->pluck('id')->toArray();
         $tagsToAttach = $tags->diffKeys($articleTags);
 

@@ -7,13 +7,13 @@ class TagsFormRequest extends FormRequest
 {
     public function prepareForValidation()
     {
-        return collect(explode(',', request('tags')))->keyBy(function ($item) { return $item; });
+        $this->merge(['tags' => collect(explode(',', request('tags')))->keyBy(function ($item) { return $item; })]);
     }
 
     public function rules()
     {
         return [
-            'tag' => '',
+            'name' => '',
         ];
     }
 }
