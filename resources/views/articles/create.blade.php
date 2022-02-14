@@ -31,13 +31,8 @@
 
         @csrf
 
-        <input type="text" name="slug" id="slug" placeholder="Символьный код страницы" value="{{ old('slug') }}"> <br>
-        <input type="text" name="title" placeholder="Название статьи" value="{{ old('title') }}"> <br>
-        <input type="text" name="description" placeholder="Краткое описание статьи" value="{{ old('description') }}"> <br>
-        <textarea name="body" id="body" cols="30" rows="10" placeholder="Текст статьи"> {{ old('body') }}</textarea> <br>
-        <lable for="publication">
-            <input type="checkbox" name="publication" id="publication"> Опубликовать статью
-        </lable> <br>
+        @include('articles.form')
+
         <input type="submit" value="Создать" name="create_article_button">
     </form>
 
