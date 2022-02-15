@@ -31,10 +31,8 @@ class ArticlesController extends Controller
     {
         $attributes = $formValidate->validated();
 
-        Article::create($attributes);
-
+        $article = Article::create($attributes);
         $tags = $tagsFormRequest->get('tags');
-        $article = Article::all()->last();
 
         $tagsSynchronizer->sync($tags, $article);
 
