@@ -5,12 +5,14 @@
     @include('layout.error')
 
     <style>
-        form {
+        .edit,
+        .delete {
             text-align: center;
         }
 
         [type='text'],
-        [type='submit'],
+        .change_article_button,
+        .delete_button,
         textarea {
             width: 500px;
             margin: 10px 0;
@@ -20,14 +22,15 @@
             font-size: 16px;
         }
 
-        [type='submit'] {
+        .edit .change_article_button,
+        .delete_button {
             background-color: green;
             color: white;
             font-size: 18px;
         }
     </style>
 
-    <form action="{{ route('articles.show', ['article' => $article]) }}" method="POST">
+    <form class="edit" action="{{ route('articles.show', ['article' => $article]) }}" method="POST">
 
         @csrf
         @method('PATCH')

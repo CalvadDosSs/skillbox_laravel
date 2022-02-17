@@ -3,7 +3,6 @@
 <style>
     .article,
     .back {
-        margin: 20px auto;
         max-width: 1000px;
     }
 
@@ -30,7 +29,10 @@
 
     <div class="article">
         <h1> {{ $article->title }} </h1>
-        <a class="change" href="{{ route('articles.edit', ['article' => $article]) }}">Изменить</a>
+
+        @can('update', $article)
+            <a class="change" href="{{ route('articles.edit', ['article' => $article]) }}">Изменить</a>
+        @endcan
 
         @include('articles.tags', ['tags' => $article->tags])
         <hr>

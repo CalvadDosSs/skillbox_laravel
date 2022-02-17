@@ -10,9 +10,14 @@ use App\Models\Tag;
 
 class ArticlesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => ['create', 'edit', 'show']]);
+    }
+
     public function index()
     {
-        $articles = Article::with('tags')->latest()->get();
+        $articles = Article::where('user_id', auth()->id())->with('tags')->latest()->get();
 
         return view('index', compact('articles'));
     }
@@ -30,6 +35,7 @@ class ArticlesController extends Controller
     public function store(FormValidate $formValidate, TagsFormRequest $tagsFormRequest, TagsSynchronizer $tagsSynchronizer)
     {
         $attributes = $formValidate->validated();
+        $attributes['user_id'] = auth()->id();
 
         $article = Article::create($attributes);
         $tags = $tagsFormRequest->get('tags');
@@ -41,6 +47,8 @@ class ArticlesController extends Controller
 
     public function edit(Article $article)
     {
+        $this->authorize('update', $article);
+
         return view('articles.edit', compact('article'));
     }
 

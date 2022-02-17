@@ -19,6 +19,7 @@ class FormValidate extends FormRequest
             'description' => 'required|max:255',
             'body' => 'required',
             'publication' => '',
+            'user_id' => '',
         ];
     }
 }
