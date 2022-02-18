@@ -11,7 +11,27 @@
                 <a class="text-muted" href="#">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3"><circle cx="10.5" cy="10.5" r="7.5"></circle><line x1="21" y1="21" x2="15.8" y2="15.8"></line></svg>
                 </a>
-                <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+
+                @guest
+                    @if (Route::has('login'))
+                        <a class="btn btn-sm btn-outline-secondary" href="{{ route('register') }}">Регистрация</a>
+                    @endif
+
+                    @if (Route::has('register'))
+                        <a class="btn btn-sm btn-outline-secondary" href="{{ route('login') }}">Войти</a>
+                    @endif
+                @else
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }}
+                        </a>
+                    </li>
+                    <form id="" action="{{ route('logout') }}" method="POST" class="">
+
+                        <input class="btn btn-sm btn-outline-secondary" type="submit" value="Выйти">
+                        @csrf
+                    </form>
+                @endguest
             </div>
         </div>
     </header>

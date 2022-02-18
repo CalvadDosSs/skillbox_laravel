@@ -1,12 +1,12 @@
 @extends('layout.master')
 
 <style>
-    form {
+    .contact_form {
         text-align: center;
     }
 
     [type='email'],
-    [type='submit'],
+    .feedback_button,
     textarea {
         width: 500px;
         margin: 10px 0;
@@ -16,7 +16,7 @@
         font-size: 16px;
     }
 
-    [type='submit'] {
+    .contact_form .feedback_button {
         background-color: green;
         color: white;
         font-size: 18px;
@@ -27,13 +27,13 @@
 
     @include('layout.error')
 
-<form action="{{ route('feedback') }}" method="POST">
+<form class="contact_form" action="{{ route('feedback') }}" method="POST">
 
     @csrf
 
     <input type="email" name="email" id="email" placeholder="Email"> <br>
     <textarea name="message" id="message" cols="30" rows="10" placeholder="Ваше сообщение"></textarea> <br>
-    <input type="submit" value="Отправить сообщение" name="feedback_button">
+    <input class="feedback_button" type="submit" value="Отправить сообщение" name="feedback_button">
 </form>
 
 @endsection

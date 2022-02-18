@@ -5,12 +5,12 @@
     @include('layout.error')
 
     <style>
-        form {
+        .create {
             text-align: center;
         }
 
         [type='text'],
-        [type='submit'],
+        .create_article_button,
         textarea {
             width: 500px;
             margin: 10px 0;
@@ -20,20 +20,20 @@
             font-size: 16px;
         }
 
-        [type='submit'] {
+        .create .create_article_button {
             background-color: green;
             color: white;
             font-size: 18px;
-        }
-    </style>
+        }    </style>
 
-    <form action="{{ route('main') }}" method="post">
+        <form class="create" action="{{ route('main') }}" method="post">
 
-        @csrf
+            @csrf
 
-        @include('articles.form')
+            @include('articles.form')
 
-        <input type="submit" value="Создать" name="create_article_button">
-    </form>
+            <input class="create_article_button" type="submit" value="Создать" name="create_article_button">
+        </form>
+    </div>
 
 @endsection

@@ -28,3 +28,5 @@ Route::post('/admin/feedback', [ContactsController::class, 'store']);
 Route::get('/about', function () {
     return view('about');
 })->name('about');
+
+Auth::routes();
