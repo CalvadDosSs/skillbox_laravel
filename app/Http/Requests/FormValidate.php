@@ -14,7 +14,7 @@ class FormValidate extends FormRequest
     public function rules()
     {
         return [
-            'slug' => 'required|',
+            'slug' => 'required|unique:articles',
             'title' => 'required|min:5|max:100',
             'description' => 'required|max:255',
             'body' => 'required',
