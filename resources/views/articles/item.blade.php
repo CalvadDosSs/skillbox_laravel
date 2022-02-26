@@ -7,9 +7,9 @@
         <p class="article_description"> Описание: {{ $article->description }}</p>
         <p class="article_body"> {{ $article->body }} </p>
         <p class="article_publication"> Статус: {{
-                ($article->publication == 0) ?
-                $article->publication = 'Не опубликовано' :
-                $article->publication = ' Опубликовано'
+                ($article->publication == 1 || $article->publication == 'on') ?
+                $article->publication = ' Опубликовано' :
+                $article->publication = ' Не опубликовано'
             }}
         </p>
     </div>

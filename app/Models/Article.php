@@ -22,7 +22,7 @@ class Article extends Model
         return 'slug';
     }
 
-    public function tags ()
+    public function tags()
     {
         return $this->belongsToMany(Tag::class, 'tag_article');
     }
@@ -30,5 +30,10 @@ class Article extends Model
     public function owner()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function isPublished()
+    {
+        return (bool) $this->publication;
     }
 }
