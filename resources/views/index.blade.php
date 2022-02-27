@@ -23,5 +23,4 @@
         @include('articles.item')
     @endforeach
 
-
 @endsection

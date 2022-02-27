@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\TagsController;
+use App\Http\Controllers\ArticleManagementController;
 
 Route::get('/articles/tags/{tag}', [TagsController::class, 'index'])->name('tags.main');
 
@@ -20,6 +21,9 @@ Route::resource('articles', ArticlesController::class)->names([
 ])->parameters([
     'articles' => 'article',
 ]);
+
+Route::get('/management', [ArticleManagementController::class, 'index'])->name('article.management');
+Route::get('/admin/management', [ArticleManagementController::class, 'index'])->name('admin.management');
 
 Route::get('/admin/feedback', [ContactsController::class, 'index'])->name('feedback');
 Route::get('/contacts', [ContactsController::class, 'create'])->name('contacts');

@@ -6,7 +6,6 @@ use App\Http\Requests\FormValidate;
 use App\Http\Requests\TagsFormRequest;
 use App\Services\TagsSynchronizer;
 use App\Models\Article;
-use App\Models\Tag;
 
 class ArticlesController extends Controller
 {
@@ -17,7 +16,8 @@ class ArticlesController extends Controller
 
     public function index()
     {
-        $articles = Article::where('user_id', auth()->id())->with('tags')->latest()->get();
+        $articles = Article::with('tags')->latest()->get();
+        $articles = $articles->filter->isPublished();
 
         return view('index', compact('articles'));
     }

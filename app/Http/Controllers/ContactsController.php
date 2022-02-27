@@ -8,6 +8,9 @@ class ContactsController extends Controller
 {
     public function index()
     {
+        abort_unless(auth()->user(), 403);
+        abort_unless(auth()->user()->isAdmin(), 403);
+
         $contacts = Contact::latest()->get();
 
         return view('admin.feedback', compact('contacts'));
