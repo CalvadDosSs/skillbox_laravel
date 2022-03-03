@@ -2,13 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Events\ArticleCreated;
 use App\Events\ArticleChanged;
 use App\Events\ArticleDeleted;
+use Illuminate\Support\Carbon;
 
 class Article extends Model
 {
+    use HasFactory;
+
     protected $guarded = [];
 
     protected $dispatchesEvents = [
@@ -32,8 +36,13 @@ class Article extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function isPublished()
+    public function isPublished() : bool
     {
         return (bool) $this->publication;
+    }
+
+    public function days($days)
+    {
+        return $this->created_at > Carbon::now()->subDays($days);
     }
 }
