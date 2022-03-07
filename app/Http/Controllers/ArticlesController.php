@@ -6,6 +6,7 @@ use App\Http\Requests\FormValidate;
 use App\Http\Requests\TagsFormRequest;
 use App\Services\TagsSynchronizer;
 use App\Models\Article;
+use App\Services\Pushall;
 
 class ArticlesController extends Controller
 {
@@ -18,6 +19,7 @@ class ArticlesController extends Controller
     {
         $articles = Article::with('tags')->latest()->get();
         $articles = $articles->filter->isPublished();
+
 
         return view('index', compact('articles'));
     }
@@ -32,7 +34,12 @@ class ArticlesController extends Controller
         return view('articles.create', compact('article'));
     }
 
-    public function store(FormValidate $formValidate, TagsFormRequest $tagsFormRequest, TagsSynchronizer $tagsSynchronizer)
+    public function store(
+        FormValidate $formValidate,
+        TagsFormRequest $tagsFormRequest,
+        TagsSynchronizer $tagsSynchronizer,
+        Pushall $pushall
+    )
     {
         $attributes = $formValidate->validated();
         $attributes['user_id'] = auth()->id();
@@ -41,6 +48,10 @@ class ArticlesController extends Controller
         $tags = $tagsFormRequest->get('tags');
 
         $tagsSynchronizer->sync($tags, $article);
+
+        $articleName = 'Создана новая статья: ' . request('title');
+        $articleDescription = 'Краткое описание: ' . request('description');
+        $pushall->send($articleName, $articleDescription);
 
         return redirect(route('main'));
     }
