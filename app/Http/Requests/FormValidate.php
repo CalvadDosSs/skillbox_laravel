@@ -15,7 +15,7 @@ class FormValidate extends FormRequest
     {
         return [
             'slug' => 'required|unique:articles',
-            'title' => 'required|min:5|max:100',
+            'title' => 'required|min:5|max:80',
             'description' => 'required|max:255',
             'body' => 'required',
             'publication' => '',
