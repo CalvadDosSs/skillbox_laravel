@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FormValidate;
 use App\Http\Requests\TagsFormRequest;
+use App\Integration\Database\Comment;
 use App\Services\TagsSynchronizer;
 use App\Models\Article;
 use App\Services\Pushall;
@@ -17,9 +18,8 @@ class ArticlesController extends Controller
 
     public function index()
     {
-        $articles = Article::with('tags')->latest()->get();
+        $articles = Article::with('tags')->with('comments')->latest()->get();
         $articles = $articles->filter->isPublished();
-
 
         return view('index', compact('articles'));
     }

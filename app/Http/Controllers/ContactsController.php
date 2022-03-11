@@ -35,6 +35,6 @@ class ContactsController extends Controller
 
         $contact->save();
 
-        return redirect(route('feedback'));
+        return redirect(route('main'));
     }
 }
