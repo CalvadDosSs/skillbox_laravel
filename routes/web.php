@@ -30,10 +30,11 @@ Route::get('/admin/feedback', [ContactsController::class, 'index'])->name('feedb
 Route::get('/contacts', [ContactsController::class, 'create'])->name('contacts');
 Route::post('/admin/feedback', [ContactsController::class, 'store']);
 
-Route::post('/comment', [CommentsController::class, 'store'])->name('comment');
+Route::post('/comment/{article}', [CommentsController::class, 'store'])->name('comment');
 
 Route::get('/about', function () {
     return view('about');
 })->name('about');
 
 Auth::routes();
+

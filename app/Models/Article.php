@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Events\ArticleCreated;
 use App\Events\ArticleChanged;
 use App\Events\ArticleDeleted;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Arr;
 
@@ -35,8 +36,8 @@ class Article extends Model
 
             $history = $article->getDirty();
             $article->history()->attach(auth()->id(), [
-                'before' => json_encode(Arr::only($article->fresh()->toArray(), array_keys($history))),
-                'after' => json_encode($history),
+                'before' => Arr::only($article->fresh()->toArray(), array_keys($history)),
+                'after' => $history,
             ]);
         });
     }
@@ -69,8 +70,8 @@ class Article extends Model
     public function history()
     {
         return $this->belongsToMany(User::class, 'article_histories')
+            ->using(ArticleHistory::class)
             ->withPivot(['before', 'after', 'created_at'])
-            ->withTimestamps()
-            ;
+            ->withTimestamps();
     }
 }

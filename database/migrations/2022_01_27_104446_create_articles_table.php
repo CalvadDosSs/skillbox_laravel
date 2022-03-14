@@ -21,9 +21,7 @@ class CreateArticlesTable extends Migration
             $table->text('body');
             $table->string('publication')->default(false);
             $table->timestamps();
-        });
 
-        Schema::table('articles', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         });
     }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FormValidate;
 use App\Http\Requests\TagsFormRequest;
-use App\Integration\Database\Comment;
 use App\Services\TagsSynchronizer;
 use App\Models\Article;
 use App\Services\Pushall;

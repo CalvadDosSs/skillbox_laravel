@@ -4,24 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use App\Models\Article;
+use App\Http\Requests\CommentFormRequest;
 
 class CommentsController extends Controller
 {
-    public function store()
+    public function store(Article $article, CommentFormRequest $commentFormRequest)
     {
-        $comment = new Comment();
+        $attributes = $commentFormRequest->validated();
+        $attributes['user_id'] = auth()->id();
 
-        $this->validate(request(), [
-            'comment' => 'required|max:500',
-            'user_id' => '',
-            'articleId' => '',
-        ]);
-
-        $comment->comment = request('comment');
-        $comment->user_id = auth()->id();
-
-        $comment->save();
-        $comment->articles()->attach(\request('articleId'));
+        $comment = Comment::create($attributes);
+        $comment->articles()->attach($article->id);
 
         return back();
     }

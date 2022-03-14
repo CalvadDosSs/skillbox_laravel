@@ -90,8 +90,8 @@
         @forelse($article->history as $history)
             <p><span>Автор изменения:</span> {{ $history->email }} </p>
             <p><span>Измененено:</span> {{ $history->pivot->created_at->diffForHumans() }} </p>
-            <p><span>Было:</span> {{ $history->pivot->before }} </p>
-            <p><span>Стало:</span> {{ $history->pivot->after }} </p>
+            <p><span>Было:</span> {{ Arr::query($history->pivot->before) }} </p>
+            <p><span>Стало:</span> {{ Arr::query($history->pivot->after) }} </p>
         @empty
             <p>Изменений не было</p>
         @endforelse
@@ -105,12 +105,11 @@
     <div class="send_comments">
         <h3>Оставить комментарий:</h3>
 
-        <form action="{{ route('comment') }}" method="POST">
+        <form action="{{ route('comment', ['article' => $article]) }}" method="POST">
 
             @csrf
 
             <textarea class="comment" name="comment" id="comment">{{ old('comment') }}</textarea>
-            <input type="hidden" name="articleId" value="{{ $article->id }}">
             <input class="comment_button" type="submit" value="Опубликовать">
         </form>
 

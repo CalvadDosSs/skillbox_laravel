@@ -18,9 +18,7 @@ class CreateArticleHistoriesTable extends Migration
             $table->text('before')->nullable();
             $table->text('after')->nullable();
             $table->timestamps();
-        });
 
-        Schema::table('article_histories', function (Blueprint $table) {
             $table->foreignId('article_id')->constrained('articles')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         });
