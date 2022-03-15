@@ -17,9 +17,8 @@ class ArticlesController extends Controller
 
     public function index()
     {
-        $articles = Article::with('tags')->latest()->get();
+        $articles = Article::with('tags')->with('comments')->latest()->get();
         $articles = $articles->filter->isPublished();
-
 
         return view('index', compact('articles'));
     }
