@@ -17,8 +17,11 @@ class ArticlesController extends Controller
 
     public function index()
     {
-        $articles = Article::with('tags')->with('comments')->latest()->get();
-        $articles = $articles->filter->isPublished();
+        $articles = Article::with('tags')
+            ->with('comments')
+            ->where('publication', '!=', '0')
+            ->latest()
+            ->simplePaginate(10);
 
         return view('index', compact('articles'));
     }
