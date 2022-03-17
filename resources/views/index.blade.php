@@ -23,4 +23,6 @@
         @include('articles.item')
     @endforeach
 
+    {{ $articles->links() }}
+
 @endsection

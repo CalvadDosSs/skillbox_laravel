@@ -15,8 +15,8 @@ class ArticleManagementController extends Controller
     public function index()
     {
         (auth()->user()->isAdmin()) ?
-            $articles = Article::with('tags')->latest()->get() :
-            $articles = Article::where('user_id', auth()->id())->with('tags')->latest()->get()
+            $articles = Article::with('tags')->latest()->simplePaginate(20) :
+            $articles = Article::where('user_id', auth()->id())->with('tags')->latest()->simplePaginate(20)
         ;
 
         return view('index', compact('articles'));

@@ -2,6 +2,8 @@
 
 @section('content')
 
+    @include('admin.nav')
+
     <style>
 
         .contact_title {
