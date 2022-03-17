@@ -29,7 +29,10 @@ Route::resource('news', NewsController::class)->names([
     'index' => 'news.index',
     'show' => 'news.show',
     'create' => 'news.create',
+    'store' => 'news.store',
     'edit' => 'news.edit',
+    'update' => 'news.update',
+    'destroy' => 'news.destroy'
 ])->parameters([
     'news' => 'news',
 ]);

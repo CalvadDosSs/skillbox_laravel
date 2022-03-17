@@ -2,7 +2,9 @@
 
 @section('content')
 
-<form class="create_news" action="{{ route('news.index') }}" method="post">
+    @include('layout.error')
+
+<form class="create_news" action="{{ route('news.store') }}" method="POST">
 
     @include('news.form')
 

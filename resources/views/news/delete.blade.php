@@ -1,4 +1,4 @@
-<form class="delete" action="{{ route('news.show', ['news' => $news]) }}" method="POST">
+<form class="delete" action="{{ route('news.destroy', ['news' => $news]) }}" method="POST">
     @csrf
     @method('DELETE')
 

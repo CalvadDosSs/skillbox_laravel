@@ -2,7 +2,9 @@
 
 @section('content')
 
-<form class="update_news" action="{{ route('news.show', ['news' => $news]) }}" method="post">
+    @include('layout.error')
+
+<form class="update_news" action="{{ route('news.update', ['news' => $news]) }}" method="POST">
 
     @method('PATCH')
     @include('news.form')
@@ -11,6 +13,5 @@
 </form>
 
 @include('news.delete')
-
 
 @endsection
