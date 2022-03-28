@@ -20,4 +20,14 @@ class News extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
+
+    public function comments()
+    {
+        return $this->morphToMany(Comment::class, 'commented');
+    }
 }

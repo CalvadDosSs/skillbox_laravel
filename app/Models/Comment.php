@@ -10,7 +10,12 @@ class Comment extends Model
 
     public function articles()
     {
-        return $this->belongsToMany(Article::class, 'article_comment');
+        return $this->morphedByMany(Article::class, 'commented');
+    }
+
+    public function news()
+    {
+        return $this->morphedByMany(News::class, 'commented');
     }
 
     public function owner()

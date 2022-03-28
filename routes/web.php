@@ -8,8 +8,10 @@ use App\Http\Controllers\ArticleManagementController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\NewsManagementController;
+use App\Http\Controllers\NewsCommentsController;
+use App\Http\Controllers\StatisticsController;
 
-Route::get('/articles/tags/{tag}', [TagsController::class, 'index'])->name('tags.main');
+Route::get('/searchByTag/tags/{tag}', [TagsController::class, 'index'])->name('tags.main');
 
 Route::resource('/', ArticlesController::class)->only([
     'index', 'store',
@@ -46,6 +48,9 @@ Route::get('/contacts', [ContactsController::class, 'create'])->name('contacts')
 Route::post('/admin/feedback', [ContactsController::class, 'store']);
 
 Route::post('/comment/{article}', [CommentsController::class, 'store'])->name('comment');
+Route::post('/newsComment/{news}', [NewsCommentsController::class, 'store'])->name('news.comment');
+
+Route::get('/admin/statistics', [StatisticsController::class, 'index'])->name('statistics');
 
 Route::get('/about', function () {
     return view('about');

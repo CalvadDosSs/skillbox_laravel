@@ -47,6 +47,7 @@ class ArticlesController extends Controller
         $attributes['user_id'] = auth()->id();
 
         $article = Article::create($attributes);
+        dd($article);
         $tags = $tagsFormRequest->get('tags');
 
         $tagsSynchronizer->sync($tags, $article);

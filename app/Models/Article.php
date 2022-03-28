@@ -44,7 +44,7 @@ class Article extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'tag_article');
+        return $this->morphToMany(Tag::class, 'taggable');
     }
 
     public function owner()
@@ -54,7 +54,7 @@ class Article extends Model
 
     public function comments()
     {
-        return $this->belongsToMany(Comment::class, 'article_comment');
+        return $this->morphToMany(Comment::class, 'commented');
     }
 
     public function isPublished() : bool
