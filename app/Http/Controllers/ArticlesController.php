@@ -28,7 +28,8 @@ class ArticlesController extends Controller
 
     public function show(Article $article)
     {
-        return view('articles.show', compact('article'));
+        $item = $article;
+        return view('articles.show', compact( 'item'));
     }
 
     public function create(Article $article)
@@ -47,7 +48,6 @@ class ArticlesController extends Controller
         $attributes['user_id'] = auth()->id();
 
         $article = Article::create($attributes);
-        dd($article);
         $tags = $tagsFormRequest->get('tags');
 
         $tagsSynchronizer->sync($tags, $article);

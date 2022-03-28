@@ -3,7 +3,7 @@
 <div class="send_comments">
     <h3>Оставить комментарий:</h3>
 
-    <form action="{{ route('comment', ['article' => $article]) }}" method="POST">
+    <form action="{{ route('comment', [$item]) }}" method="POST">
 
         @csrf
 
@@ -15,9 +15,9 @@
 
 </div>
 
-@if($article->comments !== null)
+@if($item->comments !== null)
 
-    @foreach($article->comments as $comment)
+    @foreach($item->comments as $comment)
         <div class="comments">
             <p class="comment_email"> Автор: {{ $comment->owner->email }} </p>
             <hr>
