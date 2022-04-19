@@ -26,9 +26,8 @@ class ArticlesController extends Controller
         return view('index', compact('articles'));
     }
 
-    public function show(Article $article)
+    public function show(Article $item)
     {
-        $item = $article;
         return view('articles.show', compact( 'item'));
     }
 

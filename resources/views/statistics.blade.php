@@ -23,10 +23,7 @@
             Символов: {{ strlen($item->body) }}
         @endforeach
     </p>
-    <p>Среднее количество статей у активных пользователей:
-        @foreach($averageCountArticles as $item)
-            {{ $item->avg }}
-        @endforeach
+    <p>Среднее количество статей у активных пользователей: {{ $averageCountArticles }}
     </p>
     <p>Самая непостоянная:
         @foreach($changedArticle as $item)
