@@ -33,4 +33,9 @@ class User extends Authenticatable
     {
         return $this->roles->role == 'admin';
     }
+
+    public function articles()
+    {
+        return $this->hasOne(Article::class);
+    }
 }

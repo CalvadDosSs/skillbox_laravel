@@ -11,6 +11,8 @@
                 <a href="{{ route('news.show', ['news' => $item]) }}">{{ $item->title }} »</a>
             </h2>
 
+            @include('articles.tags', ['tags' => $item->tags])
+
             <p class="news_body"> {{ $item->body }} </p>
             </p>
         </div>

@@ -4,11 +4,11 @@
 
     @include('layout.error')
 
-<form class="create_news" action="{{ route('news.store') }}" method="POST">
+<form class="create" action="{{ route('news.store') }}" method="POST">
 
     @include('news.form')
 
-    <input class="create_news_button" type="submit" value="Создать" name="create_news_button">
+    <input class="create_button" type="submit" value="Создать" name="create_button">
 </form>
 
 

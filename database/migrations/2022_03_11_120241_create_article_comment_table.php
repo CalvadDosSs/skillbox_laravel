@@ -13,9 +13,9 @@ class CreateArticleCommentTable extends Migration
      */
     public function up()
     {
-        Schema::create('article_comment', function (Blueprint $table) {
-            $table->primary(['article_id', 'comment_id']);
-            $table->foreignId('article_id')->constrained('articles')->onDelete('cascade');
+        Schema::create('commenteds', function (Blueprint $table) {
+            $table->primary(['comment_id', 'commented_id', 'commented_type']);
+            $table->morphs('commented');
             $table->foreignId('comment_id')->constrained('comments')->onDelete('cascade');
         });
     }
@@ -27,6 +27,6 @@ class CreateArticleCommentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_comment');
+        Schema::dropIfExists('commenteds');
     }
 }

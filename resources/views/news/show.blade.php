@@ -7,16 +7,21 @@
 @section('content')
 
     <div class="news">
-        <h1> {{ $news->title }} </h1>
+        <h1> {{ $item->title }} </h1>
 
         @admin(auth()->user())
-            <a class="change_news" href="{{ route('news.edit', ['news' => $news]) }}">Изменить</a>
+            <a class="change_news" href="{{ route('news.edit', [$item]) }}">Изменить</a>
         @endadmin
+
+        @include('articles.tags', ['tags' => $item->tags])
         <hr>
-        <p class="news_body"> {{ $news->body }} </p>
+        <p class="news_body"> {{ $item->body }} </p>
     </div>
 
     <div class="back">
         <a href="{{ route('news.index') }}"><-- Вернуться на главную</a>
     </div>
+
+    @include('layout.comment')
+
 @endsection

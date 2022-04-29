@@ -1,17 +1,19 @@
-
 /*Create and update*/
 
-.create_news,
-.update_news{
+.create,
+.update {
     text-align: center;
+    margin: 7px auto;
 }
 
-.create_news_slug,
-.create_news_title,
-.create_news_body,
-.update_news_slug,
-.update_news_title,
-.update_news_body
+.create_slug,
+.create_title,
+.create_body,
+.update_slug,
+.update_title,
+.update_body,
+.create_description,
+.create_tags
 {
     width: 800px;
     margin: 7px 0;
@@ -19,25 +21,18 @@
     border-radius: 5px;
 }
 
-.create_news_slug,
-.create_news_title,
-.update_news_slug,
-.update_news_title
+.create_slug,
+.create_title,
+.update_slug,
+.update_title,
+.create_description
 {
     padding: 5px 5px 5px 10px;
 }
 
-.create_publication_news,
-.update_publication_news
-{
-    width: 20px;
-    height: 20px;
-    margin: 7px 0;
-}
-
-.create_news_button,
-.update_news_button,
-.delete_news_button {
+.create_button,
+.update_button,
+.delete_button {
     width: 150px;
     height: 40px;
     margin: 20px 0;
@@ -47,23 +42,100 @@
 
 /*index*/
 
-.news {
+.news, .article {
     margin: 10px 20px;
     background-color: #FFFBC7;
     padding: 15px;
     border-radius: 5px;
 }
 
-.news .news_title
-{
+.article {
+    background-color: #E1FFDE;
+}
+
+.news .news_title,
+.article .article_title {
     text-align: center;
 }
 
-.news .news_title a {
+.news .news_title a,
+.article .article_title a {
     color: black;
     text-decoration: none;
 }
 
-.news .news_title a:hover {
+.news .news_title a:hover,
+.article .article_title a:hover {
     text-decoration: underline;
+}
+
+/* tags */
+
+.tags_link {
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: lightskyblue;
+    border-radius: 12px;
+    color: darkblue;
+}
+
+.tags_h1 {
+    margin: 10px 20px;
+}
+
+/* comments */
+
+.article,
+.back {
+    max-width: 1000px;
+}
+
+.article h1 {
+    margin: 20px auto;
+    display: inline;
+}
+
+.article p
+{
+    padding: 0 20px;
+}
+
+.article .change {
+    padding: 5px;
+    background-color: lightskyblue;
+    border-radius: 2px;
+}
+
+.send_comments {
+    text-align: center;
+}
+
+.comment {
+    width: 90%;
+    height: 150px;
+    margin-bottom: 20px;
+}
+
+.comments {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px 20px 5px 20px;
+    background-color: lightgray;
+    border-radius: 10px;
+    border: 0 solid lightgray;
+}
+
+.comment_email {
+    font-weight: bold;
+}
+
+.comment_created_at {
+    font-size: 12px !important;
+    color: darkcyan;
+    font-style: italic;
+}
+
+.changes span
+{
+    font-weight: bold;
 }
