@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Services\Pushall;
-use function PHPUnit\TestFixture\func;
 
 class PushAllServiceProvider extends ServiceProvider
 {
