@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\QuantityReport;
 use App\Http\Requests\ReportRequest;
-use Illuminate\Support\Facades\Notification;
-use App\Notifications\Report;
+use App\User;
 
 class ReportController extends Controller
 {
@@ -17,9 +16,7 @@ class ReportController extends Controller
     public function index(ReportRequest $reportRequest)
     {
         $attributes = $reportRequest->validated();
-        $report = QuantityReport::dispatchNow($attributes);
-
-        Notification::sendNow(auth()->user(), new Report($report));
+        QuantityReport::dispatch($attributes, auth()->user());
 
         return redirect(route('total'));
     }

@@ -8,20 +8,25 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use App\Notifications\Report;
 
 class QuantityReport implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $models = [];
+    protected $user;
 
-    public function __construct($models)
+    public function __construct($models, $user)
     {
         $this->models = $models;
+        $this->user = $user;
     }
 
     public function handle()
     {
+        $count = [];
+
         if (array_key_exists('articles', $this->models)) {
             $count[] = 'Количество статей: ' . \App\Models\Article::count();
         }
@@ -38,6 +43,6 @@ class QuantityReport implements ShouldQueue
             $count[] = 'Количество комментариев: ' . \App\Models\Comment::count();
         }
 
-        return $count;
+        $this->user->notify(new Report($count));
     }
 }
