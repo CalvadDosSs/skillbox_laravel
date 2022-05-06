@@ -10,6 +10,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\NewsManagementController;
 use App\Http\Controllers\NewsCommentsController;
 use App\Http\Controllers\StatisticsController;
+use App\Http\Controllers\ReportController;
 
 Route::get('/searchByTag/tags/{tag}', [TagsController::class, 'index'])->name('tags.main');
 
@@ -51,6 +52,15 @@ Route::post('/comment/{article}', [CommentsController::class, 'store'])->name('c
 Route::post('/newsComment/{news}', [NewsCommentsController::class, 'store'])->name('news.comment');
 
 Route::get('/admin/statistics', [StatisticsController::class, 'index'])->name('statistics');
+Route::post('/admin/reports/total/count', [ReportController::class, 'index'])->name('total.count');
+
+Route::get('/admin/reports', function () {
+    return view('admin.reports');
+})->name('reports');
+
+Route::get('/admin/reports/total', function () {
+    return view('admin.total');
+})->name('total');
 
 Route::get('/about', function () {
     return view('about');

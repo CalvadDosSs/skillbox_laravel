@@ -5,6 +5,7 @@
         <a class="p-2 text-muted" href="{{ route('news.create') }}">Создать новость</a>
         <a class="p-2 text-muted" href="{{ route('admin.management.news') }}">Управление новостями</a>
         <a class="p-2 text-muted" href="{{ route('statistics') }}">Статистика</a>
+        <a class="p-2 text-muted" href="{{ route('reports') }}">Отчеты</a>
         @endadmin
     </nav>
 </div>
